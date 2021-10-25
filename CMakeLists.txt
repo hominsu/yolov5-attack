@@ -52,6 +52,12 @@ if (Threads_FOUND)
     message("")
 endif ()
 
+# nlohmann/json
+find_package(nlohmann_json REQUIRED)
+if (nlohmann_json_FOUND)
+    message("")
+endif ()
+
 # OpenCV
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
