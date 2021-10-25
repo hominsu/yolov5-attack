@@ -14,13 +14,18 @@
  */
 class Patch : protected SawTooth {
  private:
-  int interval_;
+  int interval_;  ///< interval of the saw tooth
 
  public:
   Patch();
   ~Patch() override;
 
  public:
+  /**
+   * @brief Add the patch into cv::Mat according to the box rect
+   * @param _box box rect
+   * @param _mat cv::Mat
+   */
   void AddPatch(const Box::Rect &_box, cv::Mat& _mat);
 };
 
