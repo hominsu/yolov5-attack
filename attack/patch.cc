@@ -8,6 +8,11 @@ Patch::Patch() : SawTooth(), interval_(Config::Get()->BasicSetting()->interval()
 
 Patch::~Patch() = default;
 
+/**
+ * @brief Add the patch into cv::Mat according to the box rect
+ * @param _box box rect
+ * @param _mat cv::Mat
+ */
 void Patch::AddPatch(const Box::Rect &_box, cv::Mat &_mat) {
   if (_box.height() < struct_height_ * 5 || _box.width() < struct_width_ * 5) {
     return;
