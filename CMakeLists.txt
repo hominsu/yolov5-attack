@@ -29,15 +29,8 @@ elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     SET(OPENSSL_INCLUDE_DIR /opt/homebrew/Cellar/openssl@1.1/1.1.1l/include)
 elseif (CMAKE_SYSTEM_NAME MATCHES "Windows")
     message("Current platform: Windows")
-    # cuda
-    include_directories(/usr/local/cuda/include)
-    link_directories(/usr/local/cuda/lib64)
-    # tensorrt
-    include_directories(/home/hominsu/Library/TensorRT-8.0.3.4/include)
-    link_directories(/home/hominsu/Library/TensorRT-8.0.3.4/lib)
-    # other
-    include_directories(/usr/local/include)
-    link_directories(/usr/local/lib)
+    add_custom_target(COMMAND ${CMAKE_COMMAND} -E env "PATH=D:/Library/json/build;$ENV{PATH}")
+    add_custom_target(COMMAND ${CMAKE_COMMAND} -E env "PATH=D:/Library/opencv/build;$ENV{PATH}")
 else ()
     message(FATAL_ERROR "Platform ${CMAKE_SYSTEM_NAME} is not support for this project")
 endif ()
@@ -77,41 +70,6 @@ if (CUDA_FOUND)
     message("")
 endif ()
 
-
-# 提示 grpc 版本不对，有两种方法：
-#   1. 重新生成将文件覆盖 detect_service 下的文件
-#   2. 删除 detect_service 下的 *.pb.cc, *.pb.h，然后取消下面的多行注释，修改对应的 include 路径，使用 cmake --build 命令，
-#      会自动生成 *.pb.cc, *.pb.h，导入项目中编译
-#[[
-# Proto file
-get_filename_component(hw_proto "./proto/detect.proto" ABSOLUTE)
-get_filename_component(hw_proto_path "${hw_proto}" PATH)
-
-# Generated sources
-set(hw_proto_srcs "${CMAKE_CURRENT_BINARY_DIR}/detect_service/detect.pb.cc")
-set(hw_proto_hdrs "${CMAKE_CURRENT_BINARY_DIR}/detect_service/detect.pb.h")
-set(hw_grpc_srcs "${CMAKE_CURRENT_BINARY_DIR}/detect_service/detect.grpc.pb.cc")
-set(hw_grpc_hdrs "${CMAKE_CURRENT_BINARY_DIR}/detect_service/detect.grpc.pb.h")
-add_custom_command(
-        OUTPUT "${hw_proto_srcs}" "${hw_proto_hdrs}" "${hw_grpc_srcs}" "${hw_grpc_hdrs}"
-        COMMAND ${_PROTOBUF_PROTOC}
-        ARGS --grpc_out "${CMAKE_CURRENT_BINARY_DIR}"
-        --cpp_out "${CMAKE_CURRENT_BINARY_DIR}"
-        -I "${hw_proto_path}"
-        --plugin=protoc-gen-grpc="${_GRPC_CPP_PLUGIN_EXECUTABLE}"
-        "${hw_proto}"
-        DEPENDS "${hw_proto}")
-
-# Include generated *.pb.h files
-include_directories("${CMAKE_CURRENT_BINARY_DIR}")
-
-# hw_grpc_proto
-add_library(hw_grpc_proto
-        ${hw_grpc_srcs}
-        ${hw_grpc_hdrs}
-        ${hw_proto_srcs}
-        ${hw_proto_hdrs})
-        ]]
 
 file(GLOB ProjectSRC
         "attack/*.cc"
