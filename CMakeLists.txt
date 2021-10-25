@@ -27,6 +27,17 @@ elseif (CMAKE_SYSTEM_NAME MATCHES "Darwin")
     message(STATUS "Load include directories from /opt/homebrew/include")
     SET(OPENSSL_ROOT_DIR /opt/homebrew/Cellar/openssl@1.1/1.1.1l)
     SET(OPENSSL_INCLUDE_DIR /opt/homebrew/Cellar/openssl@1.1/1.1.1l/include)
+elseif (CMAKE_SYSTEM_NAME MATCHES "Windows")
+    message("Current platform: Windows")
+    # cuda
+    include_directories(/usr/local/cuda/include)
+    link_directories(/usr/local/cuda/lib64)
+    # tensorrt
+    include_directories(/home/hominsu/Library/TensorRT-8.0.3.4/include)
+    link_directories(/home/hominsu/Library/TensorRT-8.0.3.4/lib)
+    # other
+    include_directories(/usr/local/include)
+    link_directories(/usr/local/lib)
 else ()
     message(FATAL_ERROR "Platform ${CMAKE_SYSTEM_NAME} is not support for this project")
 endif ()
@@ -44,6 +55,12 @@ endif ()
 # OpenCV
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
+if (OpenCV_FOUND)
+    message(STATUS "OpenCV_VERSION = ${OpenCV_VERSION}")
+    message(STATUS "OpenCV_LIBS = ${OpenCV_LIBS}")
+    message(STATUS "OpenCV_INCLUDE_DIRS = ${OpenCV_INCLUDE_DIRS}")
+    message("")
+endif ()
 
 # Cuda
 find_package(CUDA REQUIRED)
