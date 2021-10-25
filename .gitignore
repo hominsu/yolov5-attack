@@ -1,0 +1,8 @@
+.idea/
+.vscode/
+cmake-build-*
+cert/
+
+*.pt
+*.wts
+*.engine
