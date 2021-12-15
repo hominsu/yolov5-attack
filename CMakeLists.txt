@@ -14,8 +14,8 @@ if (CMAKE_SYSTEM_NAME MATCHES "Linux")
     include_directories(/usr/local/cuda/include)
     link_directories(/usr/local/cuda/lib64)
     # tensorrt
-    include_directories(/home/hominsu/Library/TensorRT-8.0.3.4/include)
-    link_directories(/home/hominsu/Library/TensorRT-8.0.3.4/lib)
+    include_directories(/usr/local/TensorRT-7.0.0.11/include)
+    link_directories(/usr/local/TensorRT-7.0.0.11/lib)
     # other
     include_directories(/usr/local/include)
     link_directories(/usr/local/lib)
