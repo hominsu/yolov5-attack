@@ -1,5 +1,6 @@
 {
   "sawtooth_span": 3,
   "interval": 8,
-  "pixel_size": 1
+  "pixel_size": 1,
+  "attack_type": "thresh_binary_inv"
 }

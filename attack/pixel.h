@@ -72,7 +72,7 @@ class Pixel {
     _tp->val[0] = 255 - _tp->val[0];
     _tp->val[1] = 255 - _tp->val[1];
     _tp->val[2] = 255 - _tp->val[2];
-  }
+  };
 
 };
 

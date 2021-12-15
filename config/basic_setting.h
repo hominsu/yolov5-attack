@@ -7,6 +7,8 @@
 
 #include <nlohmann/json.hpp>
 
+#include <string>
+
 namespace Basic {
 /**
  * @brief 基础设置
@@ -16,10 +18,14 @@ struct Setting {
   int sawtooth_span_; // json: "sawtooth_span"
   int interval_;      // json: "interval"
   int pixel_size_;    // json: "pixel_size"
+  std::string attack_type_; // json: "attack_type"
 
  public:
   explicit Setting(const nlohmann::json &j)
-      : sawtooth_span_(j.at("sawtooth_span")), interval_(j.at("interval")), pixel_size_(j.at("pixel_size")) {};
+      : sawtooth_span_(j.at("sawtooth_span")),
+        interval_(j.at("interval")),
+        pixel_size_(j.at("pixel_size")),
+        attack_type_(j.at("attack_type")) {};
 
   [[nodiscard]] int sawtooth_span() const {
     return sawtooth_span_;
@@ -29,6 +35,9 @@ struct Setting {
   }
   [[nodiscard]] int pixel_size() const {
     return pixel_size_;
+  }
+  [[nodiscard]] std::string attack_type() const {
+    return attack_type_;
   }
 };
 }
