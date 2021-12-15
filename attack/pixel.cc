@@ -18,9 +18,15 @@ cv::Mat &Pixel::AddPixel(const cv::Point &_point, cv::Mat &_src) {
   for (int row = _point.y, row_end = _point.y + pixel_size_; row < row_end; ++row) {
     for (int col = _point.x, col_end = _point.x + pixel_size_; col < col_end; ++col) {
       auto p = _src.ptr<cv::Vec3b>(row, col);
-//      ThreshBinaryInv(p, 127);
-      SetBGR(p, 255, 255, 255);
-//      DValue(p);
+      if (Config::Get()->BasicSetting()->attack_type() == "thresh_binary_inv") {
+        ThreshBinaryInv(p, 127);
+      } else if (config::Get()->BasicSetting()->attack_type() == "d_value") {
+        DValue(p);
+      } else if (config::Get()->BasicSetting()->attack_type() == "set_rgb") {
+        SetBGR(p, 255, 255, 255);
+      } else {
+        std::runtime_error("attack type error");
+      }
     }
   }
 
