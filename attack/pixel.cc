@@ -20,9 +20,9 @@ cv::Mat &Pixel::AddPixel(const cv::Point &_point, cv::Mat &_src) {
       auto p = _src.ptr<cv::Vec3b>(row, col);
       if (Config::Get()->BasicSetting()->attack_type() == "thresh_binary_inv") {
         ThreshBinaryInv(p, 127);
-      } else if (config::Get()->BasicSetting()->attack_type() == "d_value") {
+      } else if (Config::Get()->BasicSetting()->attack_type() == "d_value") {
         DValue(p);
-      } else if (config::Get()->BasicSetting()->attack_type() == "set_rgb") {
+      } else if (Config::Get()->BasicSetting()->attack_type() == "set_rgb") {
         SetBGR(p, 255, 255, 255);
       } else {
         std::runtime_error("attack type error");
