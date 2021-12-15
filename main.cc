@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
   Attack attack;
 
   // create a window to show the detected frame
-  cv::namedWindow("dst", cv::WINDOW_AUTOSIZE);
+//  cv::namedWindow("dst", cv::WINDOW_AUTOSIZE);
 
   while (true) {
     auto image_it = images_path_list_it.front();
@@ -97,11 +97,11 @@ int main(int argc, char **argv) {
     }
 
     // show image
-    cv::imshow("dst", img);
-    if (cv::waitKey(1) == 'q') {
-      cv::destroyAllWindows();
-      break;
-    }
+//    cv::imshow("dst", img);
+//    if (cv::waitKey(1) == 'q') {
+//      cv::destroyAllWindows();
+//      break;
+//    }
 
     if (!is_running) {
       break;
